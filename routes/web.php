@@ -47,3 +47,36 @@ Route::get('/product/{category?}', function($cat){
     return 'The category is :' . $cat ;
 })->whereIn('category',['pc','moile','tv']);
 });
+
+//task1
+Route::get('about', function(){
+    return 'My first project';
+});
+
+Route::get('ContactUs', function(){
+    return view('contactus');
+});
+
+Route::prefix('Blog')->group(function(){
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::get('science', function(){
+        return '<h1> welcome Science Page <h1>';
+    });
+
+    Route::get('Sports', function(){
+        return '<h1> welcome My Sports Page <h1>';
+    });
+
+    Route::get('Math', function(){
+        return view('math');
+    });
+
+    Route::get('Medical', function(){
+        return view('food');
+    });
+
+});
+
