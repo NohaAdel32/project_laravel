@@ -90,5 +90,7 @@ Route::get('login', function(){
 //})->name('logged');
 
 Route::get('control', [ExampleController::class,'show']);
+
+//task3
 Route::post('logged', [LoginController::class,'log'])->name('logged');
 
