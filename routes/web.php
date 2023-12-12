@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,3 +95,10 @@ Route::get('control', [ExampleController::class,'show']);
 //task3
 Route::post('logged', [LoginController::class,'log'])->name('logged');
 
+//store data into car tale
+Route::get('createCar', [CarController::class,'create'])->name('createCar');
+Route::get('cars', [CarController::class,'index']);
+Route::post('storeCar', [CarController::class,'store'])->name('storeCar');
+
+// task4
+Route::post('storepost', [CarController::class,'store']);
