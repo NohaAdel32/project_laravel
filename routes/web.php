@@ -98,8 +98,15 @@ Route::post('logged', [LoginController::class,'log'])->name('logged');
 
 //store data into car tale
 Route::get('createCar', [CarController::class,'create'])->name('createCar');
-Route::get('cars', [CarController::class,'index']);
+Route::get('cars', [CarController::class,'index'])->name('cars');
 Route::post('storeCar', [CarController::class,'store'])->name('storeCar');
-
+Route::get('updateCar/{id}', [CarController::class,'edit']);
+Route::put('update/{id}', [CarController::class,'update'])->name('update');
+Route::get('showCar/{id}', [CarController::class,'show']);
 // task4
-Route::post('storepost', [CarController::class,'store']);
+Route::get('createPost', [PostController::class,'create'])->name('createPost');
+Route::get('posts', [postController::class,'index'])->name('posts');
+Route::post('storePost', [PostController::class,'store'])->name('storePost');
+Route::get('showPost/{id}', [postController::class,'show']);
+Route::get('updatePost/{id}', [postController::class,'edit']);
+Route::put('update/{id}', [postController::class,'update'])->name('update');

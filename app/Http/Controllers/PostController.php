@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 class PostController extends Controller
 {
+    private $columns =['posttitle', 'description', 'published','author'];
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $posts = post::get();
+        return view('posts', compact('posts'));
     }
 
     /**
@@ -19,7 +21,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('addpost');
     }
 
     /**
@@ -37,7 +39,7 @@ class PostController extends Controller
         }
         $post->author=$request->author;
         $post->save();
-        return 'Data added successfully';
+        return redirect('posts');
     }
 
     /**
@@ -45,7 +47,8 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = post::findOrFail($id);
+        return view('showpost', compact('post'));
     }
 
     /**
@@ -53,7 +56,8 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = post::findOrFail($id);
+        return view('updatepost', compact('post'));
     }
 
     /**
@@ -61,7 +65,10 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data=$request->only($this->columns);
+        $data['published']= isset($request->published);
+        post::where('id', $id)->update($data);
+        return redirect('posts');
     }
 
     /**
