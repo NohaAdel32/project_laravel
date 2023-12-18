@@ -103,6 +103,12 @@ Route::post('storeCar', [CarController::class,'store'])->name('storeCar');
 Route::get('updateCar/{id}', [CarController::class,'edit']);
 Route::put('update/{id}', [CarController::class,'update'])->name('update');
 Route::get('showCar/{id}', [CarController::class,'show']);
+Route::get('deleteCar/{id}', [CarController::class,'destroy']);
+Route::get('trashed', [CarController::class,'trashed'])->name('trashed');
+Route::get('forceDelete/{id}', [CarController::class,'forceDelete'])->name('forceDelete');
+Route::get('restoreCar/{id}', [CarController::class,'restore'])->name('restoreCar');
+
+
 // task4
 Route::get('createPost', [PostController::class,'create'])->name('createPost');
 Route::get('posts', [postController::class,'index'])->name('posts');
@@ -110,3 +116,7 @@ Route::post('storePost', [PostController::class,'store'])->name('storePost');
 Route::get('showPost/{id}', [postController::class,'show']);
 Route::get('updatePost/{id}', [postController::class,'edit']);
 Route::put('update/{id}', [postController::class,'update'])->name('update');
+Route::get('deletePost/{id}', [postController::class,'destroy']);
+Route::get('trashed', [postController::class,'trashed'])->name('trashedPost');
+Route::get('restorePost/{id}', [postController::class,'restore'])->name('restorePost');
+Route::get('forceDelete/{id}', [postController::class,'forceDelete'])->name('forceDeletePost');

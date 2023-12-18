@@ -23,6 +23,7 @@
         <th>Update at</th>
         <th>Edit</th>
         <th>Show</th>
+        <th>Delete</th>
 
       </tr>
     
@@ -44,6 +45,7 @@
         <td>{{ $post->updated_at }}</td>
         <td><a href="updatePost/{{ $post->id }}">Edit</a></td>
         <td><a href="showPost/{{ $post->id }}">Show</a></td>
+        <td><a href="deletePost/{{ $post->id }}" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
       </tr>
       @endforeach
     

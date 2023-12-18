@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Cars List</title>
+  <title>Trashed</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,7 +11,7 @@
 <body>
 @include ('includes.nav')
 <div class="container">
-  <h2>Car List</h2>
+  <h2>Trashed</h2>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -19,9 +19,9 @@
         <th>Title</th>
         <th>Description</th>
         <th>Published</th>
-        <th>Edit</th>
-        <th>Show</th>
         <th>Delete</th>
+        <th>Restore</th>
+
 
       </tr>
     
@@ -39,9 +39,9 @@
          no
        @endif
         </td>
-        <td><a href="updateCar/{{ $car->id }}">Edit</a></td>
-        <td><a href="showCar/{{ $car->id }}">Show</a></td>
-        <td><a href="deleteCar/{{ $car->id }}" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
+        
+        <td><a href="forceDelete/{{ $car->id }}" onclick="return confirm('Are you sure you want to delete?')">ForceDelete</a></td>
+        <td><a href="restoreCar/{{ $car->id }}">Restore</a></td>
       </tr>
       @endforeach
     
