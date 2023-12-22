@@ -23,6 +23,9 @@ Route::get('/', function () {
 //Route::fallback(function(){
   //  return redirect('/');
 //});
+Route::get('image', function(){
+    return view('image');
+});
 Route::get('food', function(){
     return view('food');
 });
@@ -33,8 +36,8 @@ Route::prefix('lar')->group(function(){
 Route::get('test', function(){
     return 'welcome my first laravel website';
 });
-Route::get('/test1/{id}', function($id){
-    return 'The ID is :' . $id;
+Route::get('/test1/', function(){
+    return view ('test1');
 });
 Route::get('/test2/{id?}', function($id = 0){
     return 'The ID 2 is :' . $id;
@@ -92,7 +95,7 @@ Route::get('login', function(){
 //})->name('logged');
 
 Route::get('control', [ExampleController::class,'show']);
-
+Route::post('imageUpload', [ExampleController::class,'upload'])->name('imageUpload');
 //task3
 Route::post('logged', [LoginController::class,'log'])->name('logged');
 
@@ -104,7 +107,7 @@ Route::get('updateCar/{id}', [CarController::class,'edit']);
 Route::put('update/{id}', [CarController::class,'update'])->name('update');
 Route::get('showCar/{id}', [CarController::class,'show']);
 Route::get('deleteCar/{id}', [CarController::class,'destroy']);
-Route::get('trashed', [CarController::class,'trashed'])->name('trashed');
+Route::get('trashedCar', [CarController::class,'trashed'])->name('trashed');
 Route::get('forceDelete/{id}', [CarController::class,'forceDelete'])->name('forceDelete');
 Route::get('restoreCar/{id}', [CarController::class,'restore'])->name('restoreCar');
 
@@ -115,8 +118,8 @@ Route::get('posts', [postController::class,'index'])->name('posts');
 Route::post('storePost', [PostController::class,'store'])->name('storePost');
 Route::get('showPost/{id}', [postController::class,'show']);
 Route::get('updatePost/{id}', [postController::class,'edit']);
-Route::put('update/{id}', [postController::class,'update'])->name('update');
+Route::put('updateP/{id}', [postController::class,'update'])->name('updateP');
 Route::get('deletePost/{id}', [postController::class,'destroy']);
-Route::get('trashed', [postController::class,'trashed'])->name('trashedPost');
+Route::get('trashedPost', [postController::class,'trashed'])->name('trashedPost');
 Route::get('restorePost/{id}', [postController::class,'restore'])->name('restorePost');
 Route::get('forceDelete/{id}', [postController::class,'forceDelete'])->name('forceDeletePost');

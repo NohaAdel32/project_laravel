@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\Car;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-
+use App\Traits\Common;
 class CarController extends Controller
 {
-   // private $columns =['title', 'description', 'published'];
+    use Common;
+  // private $columns =['title', 'description', 'published'];
     /**
      * Display a listing of the resource.
      */
@@ -42,10 +43,14 @@ class CarController extends Controller
       // $car->save();
        //return 'Data added successfully';
        //$data=$request->only($this->columns);
+       $messages=$this->messages();
        $data=$request->validate([
         'title'=>'required|string|max:50',
-        'description'=> 'required|string'
-        ]);
+        'description'=> 'required|string',
+        'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ], $messages);
+        $fileName = $this->uploadFile($request->image, 'assets/images');    
+        $data['image'] = $fileName;
        $data['published']= isset($request->published);
        car::create($data);
        return redirect('cars');
@@ -74,8 +79,26 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data=$request->only($this->columns);
+        $messages=$this->messages();
+       $data=$request->validate([
+        'title'=>'required|string|max:50',
+        'description'=> 'required|string',
+        'image' => [Rule::requiredIf(function () use ($id){
+
+            if (!empty(Car::find($id)->image)) {
+      
+               return false;
+            }
+      
+              return true;
+      
+           }),'mimes:png,jpg,jpeg|max:2048'],
+        ], $messages);
         $data['published']= isset($request->published);
+       if ($request->image){
+           $fileName = $this->uploadFile($request->image, 'assets/images');    
+            $data['image'] = $fileName;
+       }
         car::where('id', $id)->update($data);
         return redirect('cars');
     }
@@ -104,5 +127,16 @@ class CarController extends Controller
     {
         car::where('id', $id)->restore();
         return redirect('cars');
+    }
+    public function messages(){
+        return[
+            'title.required'=>'العنوان مطلوب',
+            'title.string'=>'Should be string',
+            'description.required'=> 'should be text',
+            'image.required'=> 'Please be sure to select an image',
+            'image.mimes'=> 'Incorrect image type',
+            'image.max'=> 'Max file size exceeded',
+         ];
+
     }
 }
