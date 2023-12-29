@@ -123,3 +123,14 @@ Route::get('deletePost/{id}', [postController::class,'destroy']);
 Route::get('trashedPost', [postController::class,'trashed'])->name('trashedPost');
 Route::get('restorePost/{id}', [postController::class,'restore'])->name('restorePost');
 Route::get('forceDelete/{id}', [postController::class,'forceDelete'])->name('forceDeletePost');
+
+Route::get('testHome', function(){
+    return view ('testHome');
+})->name('testHome');
+
+Route::get('404', function(){
+    return view ('404');
+})->name('404');
+Route::get('contact', function(){
+    return view ('contact');
+})->name('contact');

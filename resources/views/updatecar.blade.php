@@ -32,6 +32,7 @@
         {{ $message }}
       @enderror
     </div>
+    <input type="hidden" value="{{ asset('assets/images/'.$car->image) }}" name="oldImage">
     <div class="checkbox">
       <label><input type="checkbox" name="published" @checked($car->published)> Published me</label>
     </div>

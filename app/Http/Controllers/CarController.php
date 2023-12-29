@@ -95,9 +95,11 @@ class CarController extends Controller
            }),'mimes:png,jpg,jpeg|max:2048'],
         ], $messages);
         $data['published']= isset($request->published);
-       if ($request->image){
+       if ($request->hasFile('image')){
            $fileName = $this->uploadFile($request->image, 'assets/images');    
             $data['image'] = $fileName;
+            // بيمسح من ع السيرفر الصورة بس لازم اتاكد انها مش موجودة في حتي تانية
+            unlink("assets/images/" . $request->oldImage);
        }
         car::where('id', $id)->update($data);
         return redirect('cars');
