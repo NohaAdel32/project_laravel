@@ -10,5 +10,6 @@
    <h5>created at:{{$car->created_at}} </h5>
    <h5>update at:{{$car->updated_at}} </h5>
    <h5>{{($car->published)?"Published":"Not Published"}} </h5>
+   <p>{{$car->category->cat_name}}</p>
 </body>
 </html>

@@ -19,6 +19,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Published</th>
+        <th>Category</th>
         <th>Edit</th>
         <th>Show</th>
         <th>Delete</th>
@@ -39,6 +40,7 @@
          no
        @endif
         </td>
+        <td>{{ $car->category->cat_name }}</td>
         <td><a href="updateCar/{{ $car->id }}">Edit</a></td>
         <td><a href="showCar/{{ $car->id }}">Show</a></td>
         <td><a href="deleteCar/{{ $car->id }}" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>

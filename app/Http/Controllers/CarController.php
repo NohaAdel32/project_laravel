@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Car;
+use App\Models\Category;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Traits\Common;
@@ -23,7 +24,8 @@ class CarController extends Controller
      */
     public function create()
     {
-       return view('addcar');
+        $categories= category::get();
+       return view('addcar', compact('categories'));
     }
 
     /**
@@ -48,6 +50,7 @@ class CarController extends Controller
         'title'=>'required|string|max:50',
         'description'=> 'required|string',
         'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        'category_id' => 'required',
         ], $messages);
         $fileName = $this->uploadFile($request->image, 'assets/images');    
         $data['image'] = $fileName;
@@ -70,8 +73,9 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
+        $categories= category::get();
         $car = Car::findOrFail($id);
-        return view('updatecar', compact('car'));
+        return view('updatecar', compact('car', 'categories'));
     }
 
     /**
@@ -83,6 +87,7 @@ class CarController extends Controller
        $data=$request->validate([
         'title'=>'required|string|max:50',
         'description'=> 'required|string',
+        'category_id' => 'required',
         'image' => [Rule::requiredIf(function () use ($id){
 
             if (!empty(Car::find($id)->image)) {
