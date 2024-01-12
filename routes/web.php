@@ -100,7 +100,7 @@ Route::post('imageUpload', [ExampleController::class,'upload'])->name('imageUplo
 Route::post('logged', [LoginController::class,'log'])->name('logged');
 
 //store data into car tale
-Route::get('createCar', [CarController::class,'create'])->name('createCar');
+Route::get('createCar', [CarController::class,'create'])->middleware('verified')->name('createCar');
 Route::get('cars', [CarController::class,'index'])->name('cars');
 Route::post('storeCar', [CarController::class,'store'])->name('storeCar');
 Route::get('updateCar/{id}', [CarController::class,'edit']);
@@ -110,7 +110,7 @@ Route::get('deleteCar/{id}', [CarController::class,'destroy']);
 Route::get('trashedCar', [CarController::class,'trashed'])->name('trashed');
 Route::get('forceDelete/{id}', [CarController::class,'forceDelete'])->name('forceDelete');
 Route::get('restoreCar/{id}', [CarController::class,'restore'])->name('restoreCar');
-
+Auth::routes(['verify'=>true]);
 
 // task4
 Route::get('createPost', [PostController::class,'create'])->name('createPost');
@@ -134,3 +134,13 @@ Route::get('404', function(){
 Route::get('contact', function(){
     return view ('contact');
 })->name('contact');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('test20', [ExampleController::class,'createsession']);
+Route::post('contact_mail', [ExampleController::class, 'contact_mail_send'])->name('contact_mail');
