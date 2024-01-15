@@ -24,8 +24,15 @@ public function createsession(){
 }
 public function contact_mail_send(Request $request)
     {
+        $data=$request->validate([
+            'name'=>'required|string|max:50',
+            'email'=> 'required|string',
+            'phone' => 'required|string',
+            'subject' => 'required',
+            'message' => 'required',
+            ]);
         Mail::to( 'noha@gmail.com')->send( 
-            new ContactEmail($request)
+            new ContactEmail($data)
         );
         return redirect('contact');
     }

@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
 class ContactEmail extends Mailable
 {
@@ -21,16 +22,15 @@ public $user;
     {
       $this->user=$user;
     }
-    public function build(){
-        return $this->markdown('emails.contact')->subject(config('app.name') . 'contact us');
-    }
+   
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Email',
+            from: new Address($this->user['email'], $this->user['name']),
+            subject: $this->user['subject'] .'- contact Us',
         );
     }
 
@@ -40,7 +40,10 @@ public $user;
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            markdown: 'emails.contact',
+            with:[
+                $this->user,
+            ]
         );
     }
 
