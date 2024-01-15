@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\ContactEmail;
+use App\Models\Contact;
 use Mail;
 
 class ExampleController extends Controller
@@ -31,9 +32,10 @@ public function contact_mail_send(Request $request)
             'subject' => 'required',
             'message' => 'required',
             ]);
+            Contact::create($data);
         Mail::to( 'noha@gmail.com')->send( 
             new ContactEmail($data)
         );
-        return redirect('contact');
+        return redirect('contact')->with('success', 'Send Email');
     }
 }

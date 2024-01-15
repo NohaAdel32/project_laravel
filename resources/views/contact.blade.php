@@ -3,6 +3,7 @@
 Contact Us
 @endsection
 @section('content')
+
 <section class="contact-us section">
 			<div class="container">
 				<div class="inner">
@@ -17,6 +18,11 @@ Contact Us
 						<div class="col-lg-6">
 							<div class="contact-us-form">
 								<h2>Contact With Us</h2>
+								@if(session('success'))
+<div class="alert alert-success">
+	{{session('success')}}
+</div>
+@endif
 								<p>If you have any questions please fell free to contact with us.</p>
 								<!-- Form -->
 								<form class="form" method="post" action="{{route('contact_mail')}}">
