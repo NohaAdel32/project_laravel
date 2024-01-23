@@ -99,18 +99,23 @@ Route::post('imageUpload', [ExampleController::class,'upload'])->name('imageUplo
 //task3
 Route::post('logged', [LoginController::class,'log'])->name('logged');
 
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){ Route::get('createCar', [CarController::class,'create'])->middleware('verified')->name('createCar');
+        Route::get('cars', [CarController::class,'index'])->name('cars');
+        Route::post('storeCar', [CarController::class,'store'])->name('storeCar');
+        Route::get('updateCar/{id}', [CarController::class,'edit']);
+        Route::put('update/{id}', [CarController::class,'update'])->name('update');
+        Route::get('showCar/{id}', [CarController::class,'show']);
+        Route::get('deleteCar/{id}', [CarController::class,'destroy']);
+        Route::get('trashedCar', [CarController::class,'trashed'])->name('trashed');
+        Route::get('forceDelete/{id}', [CarController::class,'forceDelete'])->name('forceDelete');
+        Route::get('restoreCar/{id}', [CarController::class,'restore'])->name('restoreCar');
+        Auth::routes(['verify'=>true]);
+    });
 //store data into car tale
-Route::get('createCar', [CarController::class,'create'])->middleware('verified')->name('createCar');
-Route::get('cars', [CarController::class,'index'])->name('cars');
-Route::post('storeCar', [CarController::class,'store'])->name('storeCar');
-Route::get('updateCar/{id}', [CarController::class,'edit']);
-Route::put('update/{id}', [CarController::class,'update'])->name('update');
-Route::get('showCar/{id}', [CarController::class,'show']);
-Route::get('deleteCar/{id}', [CarController::class,'destroy']);
-Route::get('trashedCar', [CarController::class,'trashed'])->name('trashed');
-Route::get('forceDelete/{id}', [CarController::class,'forceDelete'])->name('forceDelete');
-Route::get('restoreCar/{id}', [CarController::class,'restore'])->name('restoreCar');
-Auth::routes(['verify'=>true]);
 
 // task4
 Route::get('createPost', [PostController::class,'create'])->name('createPost');
